@@ -9,15 +9,15 @@ from utils import load_json
 config = load_json('config.json')
 os.environ['CUDA_VISIBLE_DEVICES'] = ','.join([str(i) for i in config['trainer']['gpus']])
 
-# from models import get_model, get_loss
+from models import get_model, get_loss
 from data_loader import get_dataloader
-# from trainer import Trainer
+from trainer import Trainer
 
 
 def main(config):
     train_loader = get_dataloader(config['data_loader']['type'], config['data_loader']['args'])
-
-    # criterion = get_loss(config).cuda()
+    print(train_loader)
+    criterion = get_loss(config).cuda()
 
     # model = get_model(config)
 

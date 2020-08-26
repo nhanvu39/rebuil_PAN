@@ -5,9 +5,9 @@
         "args": {
             "dataset": {
                 "train_data_path": [
-                    [
-                        "/home/nhanvu/WorkSpace/OCR/Text_Detection/Receipt/train"
-                    ]
+                    
+                        "/content/drive/My Drive/Receipt/train/"
+                    
                 ],
                 "train_data_ratio": [
                     1

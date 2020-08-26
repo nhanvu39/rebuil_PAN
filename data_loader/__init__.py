@@ -7,7 +7,7 @@ from torchvision import transforms
 import copy
 import pathlib
 from . import dataset
-
+import json
 
 def get_datalist(train_data_path, validation_split=0.1):
     """
@@ -20,9 +20,18 @@ def get_datalist(train_data_path, validation_split=0.1):
     train_data_list = []
     for path in train_data_path:
         train_data = []
+        # print(path)
         with open(path+'train.json') as json_file:
             data = json.load(json_file) 
-            train_data = list(zip(path + 'img/' + data['images_path'],path + 'gt/' +data['box_path']))
+            path_images = []
+            path_boxs = []
+            for name in data['images_path']:
+                name = path + 'img/' + name
+                path_images.append(name)
+            for name in data['box_path']:
+                name = path + 'gt/' + name
+                path_boxs.append(name)
+            train_data = list(zip( path_images,path_boxs))
 
     # for train_path in train_data_path:
     #     train_data = []
@@ -65,7 +74,7 @@ def get_dataloader(module_name, module_args):
     train_data_ratio = dataset_args.pop('train_data_ratio')
     dataset_args.pop('val_data_path')
     train_data_list = get_datalist(train_data_path, module_args['loader']['validation_split'])
-    print(train_data_list) 
+    # print(train_data_list) 
     train_dataset_list = []
     for train_data in train_data_list:
         train_dataset_list.append(get_dataset(data_list=train_data,
